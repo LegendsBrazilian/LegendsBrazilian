@@ -1,0 +1,4 @@
+#PLAYER | RESULTADO | INIMIGO
+Saci | DERROTA | Cuca
+Saci | DERROTA | Cuca
+Cuca | VITORIA | Mula sem cabeca

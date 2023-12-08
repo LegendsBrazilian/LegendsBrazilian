@@ -16,6 +16,7 @@ BLACK = (0, 0, 0)
 WHITE = (255, 255, 255)
 YELLOW = (244, 233, 51)
 GREEN = (30, 255, 10)
+RED = (226, 10, 16)
 
 #Imagens
 
@@ -29,9 +30,11 @@ IMAGE_BACK_BUTTON = pygame.transform.scale(pygame.image.load(os.path.join('img',
 IMAGE_ATTACK_BUTTON = pygame.transform.scale(pygame.image.load(os.path.join('img', 'botao_atacar.png')), (120, 80))
 IMAGE_DEFEND_BUTTON = pygame.transform.scale(pygame.image.load(os.path.join('img', 'botao_defender.png')), (120, 80))
 IMAGE_JUMP_BUTTON = pygame.transform.scale(pygame.image.load(os.path.join('img', 'botao_pular.png')), (120, 80))
+IMAGE_HISTORY_BUTTON = pygame.transform.scale(pygame.image.load(os.path.join('img', 'botao_historico.png')), (120, 80))
 
 
 #Fonte
 FONT = 'arial'
+FONT_TITLE = 'arialblack'
 
 
