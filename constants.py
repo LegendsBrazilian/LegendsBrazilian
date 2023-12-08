@@ -28,9 +28,12 @@ IMAGE_SETTINGS_BUTTON = pygame.transform.scale(pygame.image.load(os.path.join('i
 IMAGE_START_BUTTON = pygame.transform.scale(pygame.image.load(os.path.join('img', 'botao_iniciar.png')), (120, 80))
 IMAGE_BACK_BUTTON = pygame.transform.scale(pygame.image.load(os.path.join('img', 'botao_voltar.png')), (120, 80))
 IMAGE_ATTACK_BUTTON = pygame.transform.scale(pygame.image.load(os.path.join('img', 'botao_atacar.png')), (120, 80))
+IMAGE_SUPER_ATTACK_BUTTON = pygame.transform.scale(pygame.image.load(os.path.join('img', 'botao_ataque_forte.png')), (120, 80))
 IMAGE_DEFEND_BUTTON = pygame.transform.scale(pygame.image.load(os.path.join('img', 'botao_defender.png')), (120, 80))
 IMAGE_JUMP_BUTTON = pygame.transform.scale(pygame.image.load(os.path.join('img', 'botao_pular.png')), (120, 80))
 IMAGE_HISTORY_BUTTON = pygame.transform.scale(pygame.image.load(os.path.join('img', 'botao_historico.png')), (120, 80))
+IMAGE_QUIT_BUTTON = pygame.transform.scale(pygame.image.load(os.path.join('img', 'botao_sair.png')), (120, 80))
+IMAGE_CONTINUE_BUTTON = pygame.transform.scale(pygame.image.load(os.path.join('img', 'botao_continuar.png')), (120, 80))
 
 
 #Fonte

@@ -2,3 +2,6 @@
 Saci | DERROTA | Cuca
 Saci | DERROTA | Cuca
 Cuca | VITORIA | Mula sem cabeca
+Mula sem cabeca | DERROTA | Cuca
+Cuca | VITORIA | Saci
+Cuca | VITORIA | Mula sem cabeca

@@ -12,8 +12,11 @@ cuca_button = button.Button(constants.IMAGE_CUCA, 1)
 saci_button = button.Button(constants.IMAGE_SACI, 1)
 back_button = button.Button(constants.IMAGE_BACK_BUTTON, 1)
 atack_button = button.Button(constants.IMAGE_ATTACK_BUTTON, 1)
+super_atack = button.Button(constants.IMAGE_SUPER_ATTACK_BUTTON, 1)
 jump_button = button.Button(constants.IMAGE_JUMP_BUTTON, 1)
 defense_button = button.Button(constants.IMAGE_DEFEND_BUTTON, 1)
+continue_button = button.Button(constants.IMAGE_CONTINUE_BUTTON, 1)
+quit_button = button.Button(constants.IMAGE_QUIT_BUTTON, 1)
 
 
 
@@ -46,35 +49,72 @@ class Computer:
         self.defense = defense
 
 class Combat():
+    tim_sa_pl = 0;
+    tim_sa_op = 0;
     def __init__(self):
         pass
 
     def action(self, player_action):
-        computer_action = ["defend", "jump", "attack", "attack"]
-        r = random.randint(0, 3)
-        cp_action = computer_action[r]
+        computer_action = ["defend","jump", "attack", "super_attack"]
+        
+        if player_action == "super_attack" and self.tim_sa_pl != 0:
+            return
+        
+        while True: 
+            r = random.randint(0, 3)
+            cp_action = computer_action[r]
+            if (cp_action == "super_attack" and self.tim_sa_op == 0) or (cp_action != "super_attack"):
+                break;
+
+        if cp_action == "super_attack":
+            self.tim_sa_op = 5
+
+        print(cp_action)
+        #se player atacar simples
         if player_action == "attack":
             if cp_action == "attack":
                 g.ply.health -= g.opp.attack
                 g.opp.health -= g.ply.attack
             elif cp_action == "defend":
                 g.opp.health -= max(0, g.ply.attack - g.opp.defense)
-            elif cp_action == "jump":
+            if cp_action == "super_attack":
+                g.ply.health -= 2*g.opp.attack
+                g.opp.health -= g.ply.attack
+            if cp_action == "jump":
                 pass
+
+        # se player usar super ataque
+        elif player_action == "super_attack" and self.tim_sa_pl == 0:
+            self.tim_sa_pl = 5
+            if cp_action == "attack":
+                g.ply.health -= g.opp.attack
+                g.opp.health -= 2*g.ply.attack
+            elif cp_action == "defend":
+                g.opp.health -= max(0, 2*g.ply.attack - int(1.5*g.opp.defense))
+                self.tim_sa_op -= 1
+            if cp_action == "super_attack":
+                g.ply.health -= 2*g.opp.attack
+                g.opp.health -= 2*g.ply.attack
+
+        #se player defender
         elif player_action == "defend":
-            if cp_action == "attack":
+            if cp_action == "super_attack":
+                g.ply.health -= max(0, 2*g.opp.attack - int(1.5*g.ply.defense))
+            elif cp_action == "attack":
                 g.ply.health -= max(0, g.opp.attack - g.ply.defense)
-            elif cp_action == "defend":
-                pass
-            elif cp_action == "jump":
-                pass
+            
+
+        #se player pular
         elif player_action == "jump":
-            if cp_action == "attack":
-                pass
-            elif cp_action == "defend":
-                pass
-            elif cp_action == "jump":
-                pass
+            pass
+        
+        if player_action != "super_attack" and player_action != "jump":
+            self.tim_sa_pl = max(0, self.tim_sa_pl - 1)
+        
+        if cp_action != "jump":
+            self.tim_sa_op = max(0, self.tim_sa_op - 1)
+
+
 
         
 
@@ -102,10 +142,10 @@ class Game():
             #self.screen.blit(constants.IMAGE_BACKGROUND, (0,0))
             if self.scrn == "Menu":
                 self.screen.fill(constants.GREEN)
-                if start_button.draw(self.screen, (constants.WIDTH/2) - 60, constants.HEIGHT/2 - 80):
+                if start_button.draw(self.screen, (constants.WIDTH/2) - 60, constants.HEIGHT/2 - 100):
                     self.screen.fill(constants.BLACK)
                     self.scrn = "Character"
-                elif history_button.draw(self.screen, (constants.WIDTH/2) - 60, constants.HEIGHT/2 + 80):
+                elif history_button.draw(self.screen, (constants.WIDTH/2) - 60, constants.HEIGHT/2 ):
                     self.linVa = 50
                     self.scrn = "History"
 
@@ -117,6 +157,12 @@ class Game():
                 if back_button.draw(self.screen, constants.WIDTH - 150, constants.HEIGHT - 80):
                     self.scrn = "Menu"
 
+            if self.scrn == "Pause":
+                self.screen.fill(constants.RED)
+                if continue_button.draw(self.screen, constants.WIDTH/2 - 150, constants.HEIGHT/2 - 50):
+                    self.scrn = "Combat"
+                if quit_button.draw(self.screen, constants.WIDTH/2 - 150, constants.HEIGHT/2 + 40):
+                    self.scrn = "Menu"
 
             if self.scrn == "Character":
                 self.draw_text("ESCOLHA SEU PERSONAGEM:", constants.FONT, constants.WHITE, 300, 30)
@@ -138,11 +184,14 @@ class Game():
                 self.draw_text(str(self.ply.health), constants.FONT, constants.BLACK, 50, 150)
                 self.draw_opponent()
                 self.draw_text(str(self.opp.health), constants.FONT, constants.BLACK, constants.WIDTH - 100, 150)
-                if atack_button.draw(self.screen, (constants.WIDTH/2) - 300, constants.HEIGHT - 100):
+                if atack_button.draw(self.screen, 100, constants.HEIGHT - 100):
                     self.com.action("attack")
-                if defense_button.draw(self.screen, (constants.WIDTH/2) + 200, constants.HEIGHT - 100):
+                if super_atack.draw(self.screen, 250, constants.HEIGHT - 100):
+                    self.com.action("super_attack")
+                self.draw_text(str(self.com.tim_sa_pl), constants.FONT, constants.BLACK, 250, constants.HEIGHT - 90)
+                if defense_button.draw(self.screen, 450, constants.HEIGHT - 100):
                     self.com.action("defend")
-                if jump_button.draw(self.screen, (constants.WIDTH/2) , constants.HEIGHT - 100,):
+                if jump_button.draw(self.screen, 600 , constants.HEIGHT - 100,):
                     self.com.action("jump")
 
                 if self.ply.health <= 0:
@@ -188,6 +237,11 @@ class Game():
                         self.linVa = 50
                     else:
                         self.linVa += 50
+            if (self.scrn == "Combat" or self.scrn == "Pause") and event.type == pygame.KEYDOWN:
+                key = event.key
+                if pygame.key.name(key) == "escape":
+                    self.scrn = "Combat" if self.scrn == "Pause" else "Pause"
+            
         
         pygame.display.update()
     
