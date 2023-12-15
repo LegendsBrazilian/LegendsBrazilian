@@ -18,6 +18,9 @@ defense_button = button.Button(constants.IMAGE_DEFEND_BUTTON, 1)
 continue_button = button.Button(constants.IMAGE_CONTINUE_BUTTON, 1)
 quit_button = button.Button(constants.IMAGE_QUIT_BUTTON, 1)
 info_button = button.Button(constants.IMAGE_INFO_BUTTON, 1)
+banner_mula = button.Button(constants.IMAGE_CARTAZ_MULA, 1)
+banner_saci = button.Button(constants.IMAGE_CARTAZ_SACI, 1)
+banner_cuca = button.Button(constants.IMAGE_CARTAZ_CUCA, 1)
 
 
 
@@ -141,10 +144,10 @@ class Game:
             if self.scrn == "Menu":
                 #self.screen.blit(constants.IMAGE_BACKGROUND, (0,0))
                 self.screen.blit(constants.IMAGE_TITLE, (270, 100))
-                if start_button.draw(self.screen, (constants.WIDTH/2) - 60, constants.HEIGHT/2):
+                if start_button.draw(self.screen, (constants.WIDTH/2) - 60, constants.HEIGHT/2 + 50):
                     self.screen.fill(constants.BLACK)
                     self.scrn = "Character"
-                elif history_button.draw(self.screen, (constants.WIDTH/2) - 60, constants.HEIGHT/2 + 100):
+                elif history_button.draw(self.screen, (constants.WIDTH/2) - 60, constants.HEIGHT/2 + 150):
                     self.linVa = 50
                     self.scrn = "History"
                 elif info_button.draw(self.screen, constants.WIDTH - 60, constants.HEIGHT - 60):
@@ -175,13 +178,13 @@ class Game:
             elif self.scrn == "Character":
                 self.screen.blit(constants.IMAGE_BACKGROUND_BLUR, (0,0))
                 self.draw_text("ESCOLHA SEU PERSONAGEM:", constants.FONT, constants.BLACK, 300, 30)
-                if saci_button.draw(self.screen, constants.WIDTH/2 - 200,  constants.HEIGHT/2 - 100):
+                if banner_saci.draw(self.screen, constants.WIDTH/2 - 325,  constants.HEIGHT/2 - 120):
                     self.choose_player(0)
                     self.scrn = "Combat"
-                if mula_button.draw(self.screen, constants.WIDTH/2 - 50, constants.HEIGHT/2 - 100):
+                if banner_mula.draw(self.screen, constants.WIDTH/2 - 75, constants.HEIGHT/2 - 120):
                     self.choose_player(1)
                     self.scrn = "Combat"
-                if cuca_button.draw(self.screen, constants.WIDTH/2 + 150, constants.HEIGHT/2 - 100):
+                if banner_cuca.draw(self.screen, constants.WIDTH/2 + 175, constants.HEIGHT/2 - 120):
                     self.choose_player(2)
                     self.scrn = "Combat"
                 if back_button.draw(self.screen, (constants.WIDTH/2) - 300, constants.HEIGHT - 100):

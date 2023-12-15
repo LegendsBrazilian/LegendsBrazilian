@@ -37,6 +37,9 @@ IMAGE_HISTORY_BUTTON = pygame.transform.scale(pygame.image.load(os.path.join('im
 IMAGE_QUIT_BUTTON = pygame.transform.scale(pygame.image.load(os.path.join('img', 'botao_sair.png')), (120, 80))
 IMAGE_CONTINUE_BUTTON = pygame.transform.scale(pygame.image.load(os.path.join('img', 'botao_continuar.png')), (120, 80))
 IMAGE_INFO_BUTTON = pygame.transform.scale(pygame.image.load(os.path.join('img', 'botao_info.png')), (50, 50))
+IMAGE_CARTAZ_CUCA = pygame.transform.scale(pygame.image.load(os.path.join('img', 'cartaz_cuca.png')), (150, 150))
+IMAGE_CARTAZ_MULA = pygame.transform.scale(pygame.image.load(os.path.join('img', 'cartaz_mula.png')), (150, 150))
+IMAGE_CARTAZ_SACI = pygame.transform.scale(pygame.image.load(os.path.join('img', 'cartaz_saci.png')), (150, 150))
 
 
 #Fonte
