@@ -1,0 +1,21 @@
+# Os Personagens: 
+* CUCA: 90 VIDA - 25 ATAQUE - 9 DEFESA
+* MULA SEM CABECA: 120 VIDA - 15 ATAQUE - 15 DEFESA
+* SACI: 100 VIDA - 20 ATAQUE - 10 DEFESA
+*
+# O combate:
+* Em cada rodada, tanto você quanto o computador poderão escolher entre quatro ações diferentes:
+* a. Ataque Normal: Um golpe padrão, causando dano moderado ao oponente.
+* b. Defesa: Reduz o dano recebido na rodada, proporcionando uma estratégia defensiva.
+* c. Pulo: Esquiva-se do ataque do oponente.
+* d. Ataque Especial: Um poderoso golpe que causa o dobro de dano.
+*
+# Ataque Especial:
+* O Ataque Especial é uma habilidade única que pode ser desencadeada a cada -cinco- rodadas. 
+* No entanto, se você escolher a ação "Pulo" em qualquer rodada, o contador do Ataque Especial 
+* não diminui, ou seja, rodadas com "Pulo" não contam para o as cinco rodadas de espera
+*
+# Fim do Jogo:
+* O jogo termina quando a vida do jogador ou do computador chega a zero. 
+* Celebre a vitória se derrotar o computador ou refine sua estratégia 
+* para futuras batalhas em caso de derrota.

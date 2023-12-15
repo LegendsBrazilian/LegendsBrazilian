@@ -5,3 +5,4 @@ Cuca | VITORIA | Mula sem cabeca
 Mula sem cabeca | DERROTA | Cuca
 Cuca | VITORIA | Saci
 Cuca | VITORIA | Mula sem cabeca
+Saci | VITORIA | Mula sem cabeca

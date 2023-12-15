@@ -17,6 +17,7 @@ jump_button = button.Button(constants.IMAGE_JUMP_BUTTON, 1)
 defense_button = button.Button(constants.IMAGE_DEFEND_BUTTON, 1)
 continue_button = button.Button(constants.IMAGE_CONTINUE_BUTTON, 1)
 quit_button = button.Button(constants.IMAGE_QUIT_BUTTON, 1)
+info_button = button.Button(constants.IMAGE_INFO_BUTTON, 1)
 
 
 
@@ -90,7 +91,7 @@ class Combat():
                 g.ply.health -= g.opp.attack
                 g.opp.health -= 2*g.ply.attack
             elif cp_action == "defend":
-                g.opp.health -= max(0, 2*g.ply.attack - int(1.5*g.opp.defense))
+                g.opp.health -= max(0, 2*g.ply.attack - g.opp.defense)
                 self.tim_sa_op -= 1
             if cp_action == "super_attack":
                 g.ply.health -= 2*g.opp.attack
@@ -99,7 +100,7 @@ class Combat():
         #se player defender
         elif player_action == "defend":
             if cp_action == "super_attack":
-                g.ply.health -= max(0, 2*g.opp.attack - int(1.5*g.ply.defense))
+                g.ply.health -= max(0, 2*g.opp.attack - g.ply.defense)
             elif cp_action == "attack":
                 g.ply.health -= max(0, g.opp.attack - g.ply.defense)
             
@@ -115,10 +116,7 @@ class Combat():
             self.tim_sa_op = max(0, self.tim_sa_op - 1)
 
 
-
-        
-
-class Game():
+class Game:
     def __init__(self):
         pygame.init()
         self.screen = pygame.display.set_mode((constants.WIDTH, constants.HEIGHT))
@@ -135,7 +133,6 @@ class Game():
         self.n = 1
 
     def run(self):
-        self.running = True
         print("rodando")
         while self.running:
             self.clock.tick(constants.FPS)
@@ -148,23 +145,31 @@ class Game():
                 elif history_button.draw(self.screen, (constants.WIDTH/2) - 60, constants.HEIGHT/2 ):
                     self.linVa = 50
                     self.scrn = "History"
+                elif info_button.draw(self.screen, constants.WIDTH - 100, constants.HEIGHT - 100):
+                    self.scrn = "Howtoplay"
 
-
-            if self.scrn == "History":
+            elif self.scrn == "History":
                 self.screen.fill(constants.RED)
                 self.read_data()
                 self.draw_text("HISTÓRICO DE BATALHA", constants.FONT_TITLE, constants.BLACK, 300, 20)
                 if back_button.draw(self.screen, constants.WIDTH - 150, constants.HEIGHT - 80):
                     self.scrn = "Menu"
 
-            if self.scrn == "Pause":
+            elif self.scrn == "Howtoplay":
                 self.screen.fill(constants.RED)
-                if continue_button.draw(self.screen, constants.WIDTH/2 - 150, constants.HEIGHT/2 - 50):
-                    self.scrn = "Combat"
-                if quit_button.draw(self.screen, constants.WIDTH/2 - 150, constants.HEIGHT/2 + 40):
+                self.read_draw_howtoplay()
+                if back_button.draw(self.screen, constants.WIDTH - 150, constants.HEIGHT - 60):
                     self.scrn = "Menu"
 
-            if self.scrn == "Character":
+            
+            elif self.scrn == "Pause":
+                self.screen.fill(constants.RED)
+                if continue_button.draw(self.screen, constants.WIDTH/2 - 200, constants.HEIGHT/2 - 50):
+                    self.scrn = "Combat"
+                if quit_button.draw(self.screen, constants.WIDTH/2 - 200, constants.HEIGHT/2 + 40):
+                    self.scrn = "Menu"
+
+            elif self.scrn == "Character":
                 self.draw_text("ESCOLHA SEU PERSONAGEM:", constants.FONT, constants.WHITE, 300, 30)
                 if saci_button.draw(self.screen, 40,  constants.HEIGHT/2):
                     self.choose_player(0)
@@ -178,7 +183,7 @@ class Game():
                 if back_button.draw(self.screen, (constants.WIDTH/2) - 300, constants.HEIGHT - 100):
                     self.scrn = "Menu"
 
-            if self.scrn == "Combat":
+            elif self.scrn == "Combat":
                 self.screen.blit(constants.IMAGE_BACKGROUND, (0,0))
                 self.draw_player()
                 self.draw_text(str(self.ply.health), constants.FONT, constants.BLACK, 50, 150)
@@ -205,7 +210,7 @@ class Game():
                     self.write_data(str(self.ply.name), "VITORIA", str(self.opp.name))
                     print("Player Win")
 
-            if self.scrn == "Result":
+            elif self.scrn == "Result":
                 self.screen.fill(constants.BLACK)
                 if self.winner == "Player":
                     self.draw_text("Você ganhou!", constants.FONT, constants.WHITE, constants.WIDTH/2 - 100, constants.HEIGHT/2)
@@ -227,12 +232,12 @@ class Game():
             if self.scrn == "Result" and event.type == pygame.KEYDOWN:
                 self.scrn = "Menu"
             if self.scrn == "History" and event.type == pygame.MOUSEBUTTONDOWN:
-                if event.button == 4:
+                if event.button == 5:
                     if self.linVa <= self.mx:
                         self.linVa == self.mx
                     else:
                         self.linVa -= 50
-                elif event.button == 5:
+                elif event.button == 4:
                     if self.linVa > 0:
                         self.linVa = 50
                     else:
@@ -278,7 +283,7 @@ class Game():
             self.screen.blit(constants.IMAGE_SACI, (constants.WIDTH - 130, 200))
 
     def read_data(self):
-        f  = "data/history.txt"
+        f = "data/history.txt"
         with open(f, 'r') as archive:
             lines = archive.readlines()
 
@@ -317,7 +322,24 @@ class Game():
         self.y += 110
         self.n += 1;
 
-        
+    def read_draw_howtoplay(self):
+        f = "data/howtoplay.txt"
+        with open(f, 'r', encoding='utf-8') as archive:
+            lines = archive.readlines()
+
+        self.draw_text("COMO JOGAR:", constants.FONT_TITLE, constants.BLACK, constants.WIDTH/2 - 100, 10)
+        y = 30
+        for li in lines:
+            li.rstrip('\n')
+            spl_li = li.split(" ", 1)
+            if spl_li[0] == '#':
+                self.draw_text(str(spl_li[1]), constants.FONT, constants.BLACK, 30, y)
+            elif spl_li[0] == '*':
+                self.draw_text(str(spl_li[1]), constants.FONT, constants.BLACK, 50, y)
+            y += 20
+            
+
+
 
     def write_data(self, p, r, e):
         with open('data/history.txt', 'a') as archive:
