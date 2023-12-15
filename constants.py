@@ -19,11 +19,13 @@ GREEN = (30, 255, 10)
 RED = (226, 10, 16)
 
 #Imagens
-
+LOGO = pygame.transform.scale(pygame.image.load(os.path.join('img', 'logo.png')), (80, 80))
 IMAGE_CUCA = pygame.transform.scale(pygame.image.load(os.path.join('img', 'cuca.png')), (100, 100))
 IMAGE_SACI = pygame.transform.scale(pygame.image.load(os.path.join('img', 'saci.png')), (100, 100))
 IMAGE_MULA = pygame.transform.scale(pygame.image.load(os.path.join('img', 'mula.png')), (100, 100))
-IMAGE_BACKGROUND = pygame.transform.scale(pygame.image.load(os.path.join('img', 'bg.jpg')), (800, 500))
+IMAGE_BACKGROUND = pygame.transform.scale(pygame.image.load(os.path.join('img', 'bg.jpeg')), (800, 800))
+IMAGE_BACKGROUND_BLUR = pygame.transform.scale(pygame.image.load(os.path.join('img', 'bg_blur.jpg')), (800, 800))
+IMAGE_TITLE = pygame.transform.scale(pygame.image.load(os.path.join('img', 'titulo.png')), (270, 85))
 IMAGE_SETTINGS_BUTTON = pygame.transform.scale(pygame.image.load(os.path.join('img', 'botao_config.png')), (120, 80))
 IMAGE_START_BUTTON = pygame.transform.scale(pygame.image.load(os.path.join('img', 'botao_iniciar.png')), (120, 80))
 IMAGE_BACK_BUTTON = pygame.transform.scale(pygame.image.load(os.path.join('img', 'botao_voltar.png')), (100, 70))
@@ -34,7 +36,7 @@ IMAGE_JUMP_BUTTON = pygame.transform.scale(pygame.image.load(os.path.join('img',
 IMAGE_HISTORY_BUTTON = pygame.transform.scale(pygame.image.load(os.path.join('img', 'botao_historico.png')), (120, 80))
 IMAGE_QUIT_BUTTON = pygame.transform.scale(pygame.image.load(os.path.join('img', 'botao_sair.png')), (120, 80))
 IMAGE_CONTINUE_BUTTON = pygame.transform.scale(pygame.image.load(os.path.join('img', 'botao_continuar.png')), (120, 80))
-IMAGE_INFO_BUTTON = pygame.transform.scale(pygame.image.load(os.path.join('img', 'botao_info.png')), (80, 80))
+IMAGE_INFO_BUTTON = pygame.transform.scale(pygame.image.load(os.path.join('img', 'botao_info.png')), (50, 50))
 
 
 #Fonte
