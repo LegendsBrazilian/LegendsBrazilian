@@ -9,7 +9,7 @@ HEIGHT = 500
 TITLE = 'LEGENDS BRAZILIAN'
 
 #FPS
-FPS = 30
+FPS = 60
 
 #Cores
 BLACK = (0, 0, 0)
@@ -25,6 +25,7 @@ IMAGE_SACI = pygame.transform.scale(pygame.image.load(os.path.join('img', 'saci.
 IMAGE_MULA = pygame.transform.scale(pygame.image.load(os.path.join('img', 'mula.png')), (100, 100))
 IMAGE_BACKGROUND = pygame.transform.scale(pygame.image.load(os.path.join('img', 'bg.jpeg')), (800, 800))
 IMAGE_BACKGROUND_BLUR = pygame.transform.scale(pygame.image.load(os.path.join('img', 'bg_blur.jpg')), (800, 800))
+IMAGE_BACKGROUND_COMBAT = pygame.transform.scale(pygame.image.load(os.path.join('img', 'bg_combate.png')), (800, 500))
 IMAGE_TITLE = pygame.transform.scale(pygame.image.load(os.path.join('img', 'titulo.png')), (270, 85))
 IMAGE_SETTINGS_BUTTON = pygame.transform.scale(pygame.image.load(os.path.join('img', 'botao_config.png')), (120, 80))
 IMAGE_START_BUTTON = pygame.transform.scale(pygame.image.load(os.path.join('img', 'botao_iniciar.png')), (120, 80))
@@ -40,6 +41,9 @@ IMAGE_INFO_BUTTON = pygame.transform.scale(pygame.image.load(os.path.join('img',
 IMAGE_CARTAZ_CUCA = pygame.transform.scale(pygame.image.load(os.path.join('img', 'cartaz_cuca.png')), (150, 150))
 IMAGE_CARTAZ_MULA = pygame.transform.scale(pygame.image.load(os.path.join('img', 'cartaz_mula.png')), (150, 150))
 IMAGE_CARTAZ_SACI = pygame.transform.scale(pygame.image.load(os.path.join('img', 'cartaz_saci.png')), (150, 150))
+IMAGE_BANNER_VIDA = pygame.transform.scale(pygame.image.load(os.path.join('img', 'banner_vida.png')), (90, 30))
+IMAGE_BANNER_VIDA_OP = pygame.transform.scale(pygame.image.load(os.path.join('img', 'banner_vida_op.png')), (90, 30))
+
 
 
 #Fonte

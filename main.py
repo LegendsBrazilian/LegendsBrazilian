@@ -118,6 +118,9 @@ class Combat():
         if cp_action != "jump":
             self.tim_sa_op = max(0, self.tim_sa_op - 1)
 
+        return cp_action
+        #g.show_message(str(cp_action), 1000)
+
 
 class Game:
     def __init__(self):
@@ -135,6 +138,8 @@ class Game:
         self.linVa = 50
         self.mx = 0
         self.n = 1
+        self.op_ac = ""
+
 
     def run(self):
         print("rodando")
@@ -191,20 +196,28 @@ class Game:
                     self.scrn = "Menu"
 
             elif self.scrn == "Combat":
-                self.screen.blit(constants.IMAGE_BACKGROUND, (0,0))
+                self.screen.blit(constants.IMAGE_BACKGROUND_COMBAT, (0,0))
+                # Drawing the player's health
                 self.draw_player()
-                self.draw_text(str(self.ply.health), constants.FONT, constants.BLACK, 50, 150)
+                self.screen.blit(constants.IMAGE_BANNER_VIDA, (75, 200))
+                self.draw_text(str(self.ply.health), constants.FONT, constants.BLACK, 115, 205)
+                # Drawing the computer's health
                 self.draw_opponent()
-                self.draw_text(str(self.opp.health), constants.FONT, constants.BLACK, constants.WIDTH - 100, 150)
+                self.screen.blit(constants.IMAGE_BANNER_VIDA_OP, (constants.WIDTH - 170, 200))
+                self.draw_text(str(self.opp.health), constants.FONT, constants.BLACK, constants.WIDTH - 150, 205)
+
+                self.draw_text(str(self.op_ac), constants.FONT, constants.WHITE, constants.WIDTH - 150, 140)
+
                 if atack_button.draw(self.screen, 100, constants.HEIGHT - 100):
-                    self.com.action("attack")
-                if super_atack.draw(self.screen, 250, constants.HEIGHT - 100):
-                    self.com.action("super_attack")
+                    self.op_ac = self.com.action("attack")
+                elif super_atack.draw(self.screen, 250, constants.HEIGHT - 100):
+                    self.op_ac = self.com.action("super_attack")
+                elif defense_button.draw(self.screen, 450, constants.HEIGHT - 100):
+                    self.op_ac = self.com.action("defend")
+                elif jump_button.draw(self.screen, 600 , constants.HEIGHT - 100,):
+                    self.op_ac = self.com.action("jump")
+                
                 self.draw_text(str(self.com.tim_sa_pl), constants.FONT, constants.BLACK, 300, constants.HEIGHT - 120)
-                if defense_button.draw(self.screen, 450, constants.HEIGHT - 100):
-                    self.com.action("defend")
-                if jump_button.draw(self.screen, 600 , constants.HEIGHT - 100,):
-                    self.com.action("jump")
 
                 if self.ply.health <= 0:
                     self.scrn = "Result"
@@ -261,6 +274,13 @@ class Game:
         img = self.font.render(text, True, color)
         self.screen.blit(img,( x, y))
 
+    def show_message(self, message, duration):
+        text = self.font.render(message, True, constants.WHITE)
+        text_rect = text.get_rect(center=(constants.WIDTH // 2, constants.HEIGHT // 2))
+        self.screen.blit(text, text_rect)
+        pygame.display.flip()
+        pygame.time.wait(duration)
+
     def choose_player(self, indice):
         self.choose = charac[indice]
         print(self.choose.name)
@@ -275,19 +295,19 @@ class Game:
     
     def draw_player(self):
         if self.choose.name == "Mula sem cabeca":
-            self.screen.blit(constants.IMAGE_MULA, (30, 200))
+            self.screen.blit(constants.IMAGE_MULA, (70, 250))
         if self.choose.name == "Cuca":
-            self.screen.blit(constants.IMAGE_CUCA, (30, 200))
+            self.screen.blit(constants.IMAGE_CUCA, (70, 250))
         if self.choose.name == "Saci":
-            self.screen.blit(constants.IMAGE_SACI, (30, 200))
+            self.screen.blit(constants.IMAGE_SACI, (70, 250))
 
     def draw_opponent(self):
         if self.opponent.name == "Mula sem cabeca":
-            self.screen.blit(constants.IMAGE_MULA, (constants.WIDTH - 130, 200))
+            self.screen.blit(constants.IMAGE_MULA, (constants.WIDTH - 170, 250))
         if self.opponent.name == "Cuca":
-            self.screen.blit(constants.IMAGE_CUCA, (constants.WIDTH - 130, 200))
+            self.screen.blit(constants.IMAGE_CUCA, (constants.WIDTH - 170, 250))
         if self.opponent.name == "Saci":
-            self.screen.blit(constants.IMAGE_SACI, (constants.WIDTH - 130, 200))
+            self.screen.blit(constants.IMAGE_SACI, (constants.WIDTH - 170, 250))
 
     def read_data(self):
         f = "data/history.txt"
