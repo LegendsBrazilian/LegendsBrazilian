@@ -1,7 +1,7 @@
 # LEGENDS BRAZILIAN
 
 ## VÍDEO
-[YouTube]()
+[YouTube](https://youtu.be/nsZdrMmf4Bs)
 
 ## MEMBROS DO GRUPO
 [NATAN](https://github.com/NATANGOATOSO)
